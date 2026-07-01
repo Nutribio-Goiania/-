@@ -1,0 +1,592 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Nutribio | Área do Cliente</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700;800;900&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --green: #1F7A37;
+    --green-dark: #155226;
+    --green-light: #E9F4EC;
+    --gold: #D6A33D;
+    --gold-dark: #B3862E;
+    --red: #C0392B;
+    --text: #233028;
+    --muted: #62705F;
+    --bg: #FFFFFF;
+    --border: #E3E8E1;
+    --radius: 12px;
+  }
+  *{margin:0;padding:0;box-sizing:border-box;}
+  body{
+    font-family:'Inter',sans-serif;
+    color:var(--text);
+    background:#fff;
+    min-height:100vh;
+    overflow-x:hidden;
+  }
+  
+  .login-screen{
+    display: flex;
+    min-height: 100vh;
+  }
+
+  /* ===== PAINEL ESQUERDO (VISUAL IMPACTANTE) ===== */
+  .visual-panel{
+    flex: 1.1;
+    position: relative;
+    background: var(--green-dark);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 60px;
+    color: #fff;
+    overflow: hidden;
+  }
+  
+  .visual-panel::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background-image: url('Imagens/banner-produtos.png');
+    background-size: cover;
+    background-position: center;
+    opacity: 0.2;
+    mix-blend-mode: luminosity;
+  }
+  
+  .visual-panel::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(135deg, var(--green-dark) 20%, rgba(31, 122, 55, 0.85) 100%);
+  }
+
+  .visual-content{
+    position: relative;
+    z-index: 10;
+    max-width: 500px;
+  }
+
+  .brand-logo{
+    background: #fff;
+    padding: 18px 24px;
+    border-radius: 14px;
+    display: inline-block;
+    margin-bottom: 40px;
+    box-shadow: 0 15px 35px rgba(0,0,0,0.25);
+  }
+  .brand-logo img{
+    height: 40px;
+    width: auto;
+  }
+
+  .visual-content h1{
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 900;
+    font-size: 3rem;
+    line-height: 1.1;
+    margin-bottom: 24px;
+  }
+  .visual-content h1 span{
+    color: var(--gold);
+  }
+  .visual-content p{
+    font-size: 1.1rem;
+    color: rgba(255,255,255,0.85);
+    margin-bottom: 40px;
+    line-height: 1.6;
+  }
+
+  /* Elementos do banco de imagens como adereços visuais */
+  .product-float{
+    position: absolute;
+    width: 280px;
+    height: 280px;
+    background-size: contain;
+    background-repeat: no-repeat;
+    z-index: 5;
+    opacity: 0.3;
+    pointer-events: none;
+  }
+  .float-1 { bottom: -40px; right: -40px; background-image: url('Imagens/torta-moida.png'); animation: float 8s infinite; }
+  .float-2 { top: -40px; left: -40px; background-image: url('Imagens/oleo-bruto.png'); animation: float 10s infinite reverse; }
+  
+  @keyframes float {
+    0%, 100% { transform: translate(0,0) rotate(0deg); }
+    50% { transform: translate(-15px, -15px) rotate(3deg); }
+  }
+
+  /* ===== PAINEL DIREITO (FORMULÁRIOS COMPLETOS) ===== */
+  .form-panel{
+    flex: 0.9;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 40px;
+    background: #fff;
+    overflow-y: auto;
+  }
+  
+  .form-box{
+    width: 100%;
+    max-width: 480px;
+    padding: 20px 0;
+  }
+
+  .form-header{
+    margin-bottom: 28px;
+  }
+  .form-header h2{
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 800;
+    font-size: 1.8rem;
+    color: var(--green-dark);
+    margin-bottom: 6px;
+  }
+  .form-header p{
+    color: var(--muted);
+    font-weight: 500;
+    font-size: 0.95rem;
+  }
+
+  .form-tabs{
+    display: flex;
+    gap: 8px;
+    margin-bottom: 28px;
+    background: var(--green-light);
+    padding: 5px;
+    border-radius: 12px;
+  }
+  .tab-btn{
+    flex: 1;
+    padding: 12px;
+    border: none;
+    background: none;
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 700;
+    font-size: 0.85rem;
+    color: var(--green);
+    cursor: pointer;
+    border-radius: 8px;
+    transition: all 0.2s;
+  }
+  .tab-btn.active{
+    background: #fff;
+    color: var(--green-dark);
+    box-shadow: 0 4px 10px rgba(31, 122, 55, 0.12);
+  }
+
+  .form-row{
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+  }
+
+  .input-group{
+    margin-bottom: 18px;
+  }
+  .input-group label{
+    display: block;
+    font-size: 0.8rem;
+    font-weight: 700;
+    color: var(--green-dark);
+    margin-bottom: 6px;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+  }
+  .input-group label span{
+    color: var(--muted);
+    font-weight: 400;
+    text-transform: none;
+    font-size: 0.75rem;
+  }
+
+  .input-field{
+    position: relative;
+    display: flex;
+    align-items: center;
+  }
+  .input-field input, .input-field select{
+    width: 100%;
+    padding: 12px 14px;
+    border: 2px solid var(--border);
+    border-radius: 10px;
+    font-family: 'Inter', sans-serif;
+    font-size: 0.95rem;
+    font-weight: 500;
+    transition: all 0.2s;
+    outline: none;
+    background: #fff;
+  }
+  .input-field input:focus{
+    border-color: var(--green);
+    box-shadow: 0 0 0 4px rgba(31, 122, 55, 0.08);
+  }
+
+  /* CORREÇÃO DEFINITIVA DO BOTÃO DE SENHA */
+  .password-field input{
+    padding-right: 48px !important;
+  }
+  .pass-toggle{
+    position: absolute;
+    right: 12px;
+    background: none;
+    border: none;
+    cursor: pointer;
+    color: var(--muted);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 6px;
+    z-index: 5;
+  }
+  .pass-toggle:hover{ color: var(--green); }
+  .pass-toggle svg{ width: 20px; height: 20px; }
+
+  /* RADIO GROUP ESTILIZADO */
+  .radio-group{
+    display: flex;
+    gap: 10px;
+    margin-bottom: 10px;
+  }
+  .radio-opt{
+    flex: 1;
+    position: relative;
+  }
+  .radio-opt input{
+    position: absolute;
+    opacity: 0;
+    cursor: pointer;
+  }
+  .radio-label{
+    display: block;
+    padding: 10px;
+    text-align: center;
+    border: 2px solid var(--border);
+    border-radius: 10px;
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: var(--muted);
+    cursor: pointer;
+    transition: all 0.2s;
+  }
+  .radio-opt input:checked + .radio-label{
+    border-color: var(--green);
+    background: var(--green-light);
+    color: var(--green-dark);
+  }
+
+  .terms-check{
+    display: flex;
+    gap: 10px;
+    margin: 20px 0;
+    font-size: 0.8rem;
+    color: var(--muted);
+    line-height: 1.4;
+  }
+  .terms-check input{
+    margin-top: 2px;
+    accent-color: var(--green);
+  }
+
+  .btn-submit{
+    width: 100%;
+    padding: 15px;
+    background: var(--green);
+    color: #fff;
+    border: none;
+    border-radius: 10px;
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 800;
+    font-size: 0.95rem;
+    cursor: pointer;
+    transition: all 0.3s;
+    box-shadow: 0 6px 15px rgba(31, 122, 55, 0.25);
+  }
+  .btn-submit:hover{
+    background: var(--green-dark);
+    transform: translateY(-2px);
+    box-shadow: 0 10px 20px rgba(31, 122, 55, 0.35);
+  }
+
+  /* TELA DE AGUARDE */
+  .waiting-screen{
+    display: none;
+    text-align: center;
+    animation: fadeIn 0.4s ease;
+  }
+  .waiting-screen.active{ display: block; }
+  
+  .status-card{
+    background: var(--green-light);
+    padding: 40px 30px;
+    border-radius: 24px;
+    border: 2px solid var(--green);
+    box-shadow: 0 15px 35px rgba(31, 122, 55, 0.1);
+  }
+  
+  .loader-box{
+    position: relative;
+    width: 80px;
+    height: 80px;
+    margin: 0 auto 25px;
+  }
+  .loader-ring {
+    width: 100%;
+    height: 100%;
+    border: 5px solid rgba(31, 122, 55, 0.1);
+    border-top: 5px solid var(--green);
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+  }
+  
+  @keyframes spin { 100% { transform: rotate(360deg); } }
+
+  .status-badge{
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: var(--gold);
+    color: #fff;
+    padding: 8px 22px;
+    border-radius: 50px;
+    font-weight: 800;
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    margin-top: 20px;
+  }
+
+  .btn-back{
+    margin-top: 25px;
+    background: none;
+    border: 2px solid var(--border);
+    padding: 10px 20px;
+    border-radius: 10px;
+    font-weight: 700;
+    color: var(--muted);
+    cursor: pointer;
+  }
+
+  @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+
+  @media (max-width: 1024px) {
+    .visual-panel { display: none; }
+    .form-panel { flex: 1; padding: 20px; }
+  }
+</style>
+</head>
+<body>
+
+<div class="login-screen">
+  
+  <!-- PAINEL VISUAL -->
+  <div class="visual-panel">
+    <div class="product-float float-1"></div>
+    <div class="product-float float-2"></div>
+    
+    <div class="visual-content">
+      <div class="brand-logo">
+        <img src="Imagens/logo.png" alt="Nutribio">
+      </div>
+      <h1>Nutrição Animal de <span>Alta Performance</span>.</h1>
+      <p>Acesse o portal exclusivo Nutribio Goiânia e tenha o controle total dos seus pedidos e cotações na palma da mão.</p>
+      
+      <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 15px;">
+        <div style="background: rgba(255,255,255,0.12); padding: 18px; border-radius: 12px; backdrop-filter: blur(8px); border: 1px solid rgba(255,255,255,0.1);">
+          <h4 style="color: var(--gold); font-size: 1.2rem; margin-bottom: 4px;">20 Anos</h4>
+          <small style="font-weight: 600; opacity: 0.8;">Tradição no Campo</small>
+        </div>
+        <div style="background: rgba(255,255,255,0.12); padding: 18px; border-radius: 12px; backdrop-filter: blur(8px); border: 1px solid rgba(255,255,255,0.1);">
+          <h4 style="color: var(--gold); font-size: 1.2rem; margin-bottom: 4px;">Goiânia</h4>
+          <small style="font-weight: 600; opacity: 0.8;">Unidade Regional</small>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- PAINEL DE FORMULÁRIO -->
+  <div class="form-panel">
+    <div class="form-box" id="formContainer">
+      
+      <div class="form-header">
+        <h2>Seja bem-vindo</h2>
+        <p>Acesse sua conta ou solicite seu cadastro.</p>
+      </div>
+
+      <div class="form-tabs">
+        <button class="tab-btn active" id="tabIn" onclick="switchTab('login')">ENTRAR</button>
+        <button class="tab-btn" id="tabUp" onclick="switchTab('register')">CRIAR CONTA</button>
+      </div>
+
+      <!-- LOGIN -->
+      <div id="loginView">
+        <form onsubmit="handleAction(event, 'login')">
+          <div class="input-group">
+            <label>E-mail ou CPF</label>
+            <div class="input-field">
+              <input type="text" placeholder="seuemail@exemplo.com" required>
+            </div>
+          </div>
+          <div class="input-group">
+            <label>Sua Senha</label>
+            <div class="input-field password-field">
+              <input type="password" id="passL" placeholder="••••••••" required>
+              <button type="button" class="pass-toggle" onclick="togglePass('passL', this)">
+                <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/><path d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" stroke-width="2"/></svg>
+              </button>
+            </div>
+          </div>
+          <button type="submit" class="btn-submit">ACESSAR PORTAL</button>
+        </form>
+      </div>
+
+      <!-- CADASTRO COMPLETO (RECUPERADO) -->
+      <div id="registerView" style="display: none;">
+        <form onsubmit="handleAction(event, 'register')">
+          <div class="input-group">
+            <label>Nome Completo</label>
+            <div class="input-field">
+              <input type="text" placeholder="Nome do titular" required>
+            </div>
+          </div>
+
+          <div class="form-row">
+            <div class="input-group">
+              <label>CPF / CNPJ</label>
+              <div class="input-field">
+                <input type="text" placeholder="000.000.000-00" required>
+              </div>
+            </div>
+            <div class="input-group">
+              <label>E-mail</label>
+              <div class="input-field">
+                <input type="email" placeholder="seu@email.com" required>
+              </div>
+            </div>
+          </div>
+
+          <div class="input-group">
+            <label>Tipo de Propriedade</label>
+            <div class="radio-group">
+              <label class="radio-opt">
+                <input type="radio" name="prop" value="fazenda" checked onclick="toggleOutro(false)">
+                <span class="radio-label">Fazenda</span>
+              </label>
+              <label class="radio-opt">
+                <input type="radio" name="prop" value="sitio" onclick="toggleOutro(false)">
+                <span class="radio-label">Sítio</span>
+              </label>
+              <label class="radio-opt">
+                <input type="radio" name="prop" value="outro" onclick="toggleOutro(true)">
+                <span class="radio-label">Outro</span>
+              </label>
+            </div>
+            <div id="outroField" style="display: none; margin-top: 10px;">
+              <div class="input-field">
+                <input type="text" placeholder="Especifique o tipo">
+              </div>
+            </div>
+          </div>
+
+          <div class="form-row">
+            <div class="input-group">
+              <label>Senha</label>
+              <div class="input-field password-field">
+                <input type="password" id="p1" placeholder="Crie uma senha" required>
+                <button type="button" class="pass-toggle" onclick="togglePass('p1', this)">
+                  <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/><path d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" stroke-width="2"/></svg>
+                </button>
+              </div>
+            </div>
+            <div class="input-group">
+              <label>Confirmar</label>
+              <div class="input-field password-field">
+                <input type="password" id="p2" placeholder="Repita a senha" required>
+                <button type="button" class="pass-toggle" onclick="togglePass('p2', this)">
+                  <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/><path d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" stroke-width="2"/></svg>
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <div class="input-group">
+            <label>Vendedor <span>(Opcional)</span></label>
+            <div class="input-field">
+              <input type="text" placeholder="Nome do vendedor Nutribio">
+            </div>
+          </div>
+
+          <div class="terms-check">
+            <input type="checkbox" id="t" required>
+            <label for="t">Estou de acordo com o uso dos meus dados para análise e aprovação do meu cadastro pela Nutribio.</label>
+          </div>
+
+          <button type="submit" class="btn-submit">SOLICITAR ACESSO</button>
+        </form>
+      </div>
+
+    </div>
+
+    <!-- TELA DE AGUARDE -->
+    <div class="waiting-screen" id="waitingView">
+      <div class="status-card">
+        <div class="loader-box">
+          <div class="loader-ring"></div>
+        </div>
+        <h2>Solicitação Enviada!</h2>
+        <p>Recebemos seus dados com sucesso. Nossa equipe da unidade Goiânia está analisando seu perfil para liberação do acesso.</p>
+        
+        <div class="status-badge">
+          <span class="dot"></span> Aguardando Aprovação
+        </div>
+        
+        <p style="margin-top: 25px; font-size: 0.85rem; color: var(--muted); font-weight: 500;">Você receberá um e-mail assim que sua conta for ativada.</p>
+      </div>
+      
+      <button class="btn-back" onclick="location.reload()">VOLTAR AO INÍCIO</button>
+    </div>
+
+  </div>
+</div>
+
+<script>
+  function switchTab(type) {
+    const isLogin = type === 'login';
+    document.getElementById('tabIn').classList.toggle('active', isLogin);
+    document.getElementById('tabUp').classList.toggle('active', !isLogin);
+    document.getElementById('loginView').style.display = isLogin ? 'block' : 'none';
+    document.getElementById('registerView').style.display = isLogin ? 'none' : 'block';
+  }
+
+  function togglePass(id, btn) {
+    const input = document.getElementById(id);
+    const isPass = input.type === 'password';
+    input.type = isPass ? 'text' : 'password';
+    
+    btn.innerHTML = isPass 
+      ? '<svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13.875 18.825A10.05 10.05 0 0112 19c-4.478 0-8.268-2.943-9.543-7a9.97 9.97 0 011.563-3.029m5.858.908a3 3 0 114.243 4.243M9.878 9.878l4.242 4.242M9.88 9.88l-3.29-3.29m7.532 7.532l3.29 3.29M3 3l18 18"/></svg>'
+      : '<svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/><path d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" stroke-width="2"/></svg>';
+  }
+
+  function toggleOutro(show) {
+    document.getElementById('outroField').style.display = show ? 'block' : 'none';
+  }
+
+  function handleAction(e, type) {
+    e.preventDefault();
+    if(type === 'login') {
+      alert('Acesso não autorizado. Seu cadastro ainda pode estar em análise.');
+    } else {
+      document.getElementById('formContainer').style.display = 'none';
+      document.getElementById('waitingView').classList.add('active');
+    }
+  }
+</script>
+
+</body>
+</html>
