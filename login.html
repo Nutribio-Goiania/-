@@ -4,6 +4,9 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Nutribio | Área do Cliente</title>
+<!-- GoatCounter — registra cada visita a esta página -->
+<script data-goatcounter="https://nutribio.goatcounter.com/count"
+        async src="//gc.zgo.at/count.js"></script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700;800;900&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
@@ -102,7 +105,6 @@
     line-height: 1.6;
   }
 
-  /* Elementos do banco de imagens como adereços visuais */
   .product-float{
     position: absolute;
     width: 280px;
@@ -121,7 +123,6 @@
     50% { transform: translate(-15px, -15px) rotate(3deg); }
   }
 
-  /* ===== PAINEL DIREITO (FORMULÁRIOS COMPLETOS) ===== */
   .form-panel{
     flex: 0.9;
     display: flex;
@@ -138,9 +139,7 @@
     padding: 20px 0;
   }
 
-  .form-header{
-    margin-bottom: 28px;
-  }
+  .form-header{ margin-bottom: 28px; }
   .form-header h2{
     font-family: 'Montserrat', sans-serif;
     font-weight: 800;
@@ -148,11 +147,7 @@
     color: var(--green-dark);
     margin-bottom: 6px;
   }
-  .form-header p{
-    color: var(--muted);
-    font-weight: 500;
-    font-size: 0.95rem;
-  }
+  .form-header p{ color: var(--muted); font-weight: 500; font-size: 0.95rem; }
 
   .form-tabs{
     display: flex;
@@ -181,15 +176,9 @@
     box-shadow: 0 4px 10px rgba(31, 122, 55, 0.12);
   }
 
-  .form-row{
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 16px;
-  }
+  .form-row{ display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
 
-  .input-group{
-    margin-bottom: 18px;
-  }
+  .input-group{ margin-bottom: 18px; }
   .input-group label{
     display: block;
     font-size: 0.8rem;
@@ -206,11 +195,7 @@
     font-size: 0.75rem;
   }
 
-  .input-field{
-    position: relative;
-    display: flex;
-    align-items: center;
-  }
+  .input-field{ position: relative; display: flex; align-items: center; }
   .input-field input, .input-field select{
     width: 100%;
     padding: 12px 14px;
@@ -228,10 +213,7 @@
     box-shadow: 0 0 0 4px rgba(31, 122, 55, 0.08);
   }
 
-  /* CORREÇÃO DEFINITIVA DO BOTÃO DE SENHA */
-  .password-field input{
-    padding-right: 48px !important;
-  }
+  .password-field input{ padding-right: 48px !important; }
   .pass-toggle{
     position: absolute;
     right: 12px;
@@ -248,21 +230,9 @@
   .pass-toggle:hover{ color: var(--green); }
   .pass-toggle svg{ width: 20px; height: 20px; }
 
-  /* RADIO GROUP ESTILIZADO */
-  .radio-group{
-    display: flex;
-    gap: 10px;
-    margin-bottom: 10px;
-  }
-  .radio-opt{
-    flex: 1;
-    position: relative;
-  }
-  .radio-opt input{
-    position: absolute;
-    opacity: 0;
-    cursor: pointer;
-  }
+  .radio-group{ display: flex; gap: 10px; margin-bottom: 10px; }
+  .radio-opt{ flex: 1; position: relative; }
+  .radio-opt input{ position: absolute; opacity: 0; cursor: pointer; }
   .radio-label{
     display: block;
     padding: 10px;
@@ -289,10 +259,7 @@
     color: var(--muted);
     line-height: 1.4;
   }
-  .terms-check input{
-    margin-top: 2px;
-    accent-color: var(--green);
-  }
+  .terms-check input{ margin-top: 2px; accent-color: var(--green); }
 
   .btn-submit{
     width: 100%;
@@ -314,12 +281,7 @@
     box-shadow: 0 10px 20px rgba(31, 122, 55, 0.35);
   }
 
-  /* TELA DE AGUARDE */
-  .waiting-screen{
-    display: none;
-    text-align: center;
-    animation: fadeIn 0.4s ease;
-  }
+  .waiting-screen{ display: none; text-align: center; animation: fadeIn 0.4s ease; }
   .waiting-screen.active{ display: block; }
   
   .status-card{
@@ -330,12 +292,7 @@
     box-shadow: 0 15px 35px rgba(31, 122, 55, 0.1);
   }
   
-  .loader-box{
-    position: relative;
-    width: 80px;
-    height: 80px;
-    margin: 0 auto 25px;
-  }
+  .loader-box{ position: relative; width: 80px; height: 80px; margin: 0 auto 25px; }
   .loader-ring {
     width: 100%;
     height: 100%;
@@ -384,7 +341,6 @@
 
 <div class="login-screen">
   
-  <!-- PAINEL VISUAL -->
   <div class="visual-panel">
     <div class="product-float float-1"></div>
     <div class="product-float float-2"></div>
@@ -409,7 +365,6 @@
     </div>
   </div>
 
-  <!-- PAINEL DE FORMULÁRIO -->
   <div class="form-panel">
     <div class="form-box" id="formContainer">
       
@@ -423,7 +378,6 @@
         <button class="tab-btn" id="tabUp" onclick="switchTab('register')">CRIAR CONTA</button>
       </div>
 
-      <!-- LOGIN -->
       <div id="loginView">
         <form onsubmit="handleAction(event, 'login')">
           <div class="input-group">
@@ -445,7 +399,6 @@
         </form>
       </div>
 
-      <!-- CADASTRO COMPLETO (RECUPERADO) -->
       <div id="registerView" style="display: none;">
         <form onsubmit="handleAction(event, 'register')">
           <div class="input-group">
@@ -532,7 +485,6 @@
 
     </div>
 
-    <!-- TELA DE AGUARDE -->
     <div class="waiting-screen" id="waitingView">
       <div class="status-card">
         <div class="loader-box">
@@ -589,4 +541,5 @@
 </script>
 
 </body>
-</html>
+  </html>
+                  
